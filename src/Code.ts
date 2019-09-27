@@ -5,9 +5,9 @@ function formMapFrom(masterId, sheetName): object {
   const sheet = SpreadsheetApp.openById(masterId).getSheetByName(sheetName);
   const values = sheet.getDataRange().getValues();
 
-  let map = {};
+  const map = {};
 
-  values.forEach( (item) => {
+  values.forEach(item => {
     const key = item[0];
     const value = item[1];
     map[key] = value;
@@ -21,13 +21,12 @@ function submitForm(event): void {
   const itemResponses: object = event.response.getItemResponses();
   const map: object = formMapFrom(MASTER_ID, formName);
 
-  let record: object = {};
-  itemResponses.forEach( (item) => {
+  const record: object = {};
+  itemResponses.forEach(item => {
     const key = map[item.getItem().getTitle()];
     const value = item.getResponse();
     record[key] = value;
   });
-
 
   Logger.log("Map: %s", map);
   Logger.log("Records: %s", [record]);
