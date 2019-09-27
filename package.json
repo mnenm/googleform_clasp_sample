@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@google/clasp": "^2.3.0",
+    "tslint": "^5.20.0"
+  }
 }
