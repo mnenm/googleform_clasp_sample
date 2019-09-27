@@ -1,5 +1,5 @@
-const MASTER_ID = "1VrtqJhWbcU_oIuHALlNXQvnNWMIBDrP2ZHiOlVLZ6sY";
-const MASTER_SHEET_NAME = "ques1";
+const PropService = PropertiesService.getScriptProperties();
+const MASTER_ID = PropService.getProperty("MASTER_ID");
 
 function formMapFrom(masterId, sheetName): object {
   const sheet = SpreadsheetApp.openById(masterId).getSheetByName(sheetName);
@@ -10,16 +10,16 @@ function formMapFrom(masterId, sheetName): object {
   values.forEach( (item) => {
     const key = item[0];
     const value = item[1];
-
     map[key] = value;
   });
 
   return map;
 }
 
-function main(event): void {
+function submitForm(event): void {
+  const formName = FormApp.getActiveForm().getTitle();
   const itemResponses: object = event.response.getItemResponses();
-  const map: object = formMapFrom(MASTER_ID, MASTER_SHEET_NAME);
+  const map: object = formMapFrom(MASTER_ID, formName);
 
   let record: object = {};
   itemResponses.forEach( (item) => {
