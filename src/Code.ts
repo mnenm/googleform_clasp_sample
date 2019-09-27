@@ -17,9 +17,19 @@ function formMapFrom(masterId, sheetName): object {
   return map;
 }
 
-function main(): void {
-  const map = formMapFrom(MASTER_ID, MASTER_SHEET_NAME);
+function main(event): void {
+  const itemResponses: object = event.response.getItemResponses();
+  const map: object = formMapFrom(MASTER_ID, MASTER_SHEET_NAME);
+
+  let record: object = {};
+  itemResponses.forEach( (item) => {
+    const key = map[item.getItem().getTitle()];
+    const value = item.getResponse();
+    record[key] = value;
+  });
+
 
   Logger.log("Map: %s", map);
+  Logger.log("Records: %s", [record]);
   Logger.log(Moment.moment().format());
 }
